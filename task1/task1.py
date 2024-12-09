@@ -8,6 +8,7 @@ elif len(sys.argv) < 3:
     print("Error: Only one argument provided. Usage: python task1.py <n> <m>")
     sys.exit(2)
     
+<<<<<<< HEAD
 try:
     n = int(sys.argv[1])
     m = int(sys.argv[2])
@@ -20,6 +21,9 @@ if n <= 0 or m <= 0:
     sys.exit(4)
 
 
+=======
+########
+>>>>>>> 29461d02a906702f9cbd220b6b05f8cb8eece202
 current_n = 0
 result = []
 
