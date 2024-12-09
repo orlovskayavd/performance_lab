@@ -1,16 +1,25 @@
+import sys
+
+
+if len(sys.argv) < 2:
+    print("Error: No arguments provided. Usage: python task4.py <input.txt>")
+    sys.exit(1)
+
+input_file = sys.argv[1]
+
 try:
-    input_file = open('input.txt', 'r')
-    nums = []
-    for line in input_file.readlines():
-        nums.append(int(line.strip()))
-    input_file.close()
+    with open(input_file, 'r') as file:
+        nums = [int(line.strip()) for line in file.readlines()]
+except FileNotFoundError:
+    print(f"Error: File '{input_file}' not found!")
+    sys.exit(2)
 except ValueError:
     print("The file contains incorrect data!")
-    exit()
+    sys.exit(3)
     
 if not nums:
     print("The file is empty!")
-    exit()
+    sys.exit(4)
 
 nums = sorted(nums)
 

@@ -1,14 +1,23 @@
-n, m = map(int, input("Enter n and m separated by a space: ").split())
+import sys
+
+if len(sys.argv) < 2:
+    print("Error: No arguments provided. Usage: python task1.py <n> <m>")
+    sys.exit(1)
+elif len(sys.argv) < 3:
+    print("Error: Only one argument provided. Usage: python task1.py <n> <m>")
+    sys.exit(2)
 
 try:
-    if n <= 0 or m <= 0:
-        print ("The numbers must be greater than 0!")
-        exit()
+    n = int(sys.argv[1])
+    m = int(sys.argv[2])
 except ValueError:
     print("Enter integers!")
-    exit()
+    exit(3)
     
-########
+if n <= 0 or m <= 0:
+    print ("The numbers must be greater than 0!")
+    exit(4)
+    
 current_n = 0
 result = []
 
