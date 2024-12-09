@@ -1,9 +1,28 @@
 import json
+import os
+import sys
 
 
-values_file = "values.json"
-tests_file = "tests.json"
-report_file = "report.json"
+if len(sys.argv) < 2:
+    print("Error: No arguments provided. Usage: python task3.py <values.json> <tests.json> <report.json>")
+    sys.exit(1)
+elif len(sys.argv) < 4:
+    print("Error: Incorrect number of arguments provided. Usage: python task3.py <values.json> <tests.json> <report.json>")
+    sys.exit(2)
+
+values_file = sys.argv[1]
+tests_file = sys.argv[2]
+report_file = sys.argv[3]
+
+if values_file == tests_file or values_file == report_file or tests_file == report_file:
+    print("Error: Output file must be different from input files.")
+    sys.exit(3)
+    
+if os.path.exists(report_file):
+    with open(report_file, 'r') as rf:
+        if len(rf.read().strip()) > 0:
+            print(f"Error: {report_file} already contains data. Please use new or empty report file.")
+            sys.exit(4)
 
 try:
     with open(values_file, 'r')as vf:
@@ -19,13 +38,13 @@ try:
         
 except FileNotFoundError as e:
     print(f"Error: {e}")
-    exit(1)
+    sys.exit(5)
 except json.JSONDecodeError as e:
     print(f"Error parsing JSON: {e}")
-    exit(2)
+    sys.exit(6)
 except ValueError as e:
     print(f"Error in file structure: {e}")
-    exit(3)
+    sys.exit(7)
         
 values_dict = {item["id"]: item["value"] for item in values_data}
 
@@ -45,11 +64,10 @@ def fill_values(node, values):
 for test in tests_data["tests"]:
     fill_values(test, values_dict)
 
-
 try:
     with open(report_file, 'w') as rf:
         json.dump(tests_data, rf, indent=4)
         print(f"Report successfully saved to {report_file}")
 except IOError as e:
     print(f"Error saving report: {e}")
-    exit(4)
+    sys.exit(8)
