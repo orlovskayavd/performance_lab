@@ -8,7 +8,7 @@ except ValueError:
     print("Enter integers!")
     exit()
     
-
+########
 current_n = 0
 result = []
 
